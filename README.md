@@ -265,7 +265,7 @@ function showRepositories(event, data) {
 }
 ```
 
-Let's look more closely at this line: `repoList += ' - <a href="#" data-repo="' + name + '" onclick="getCommits(this)">Get Commits</a></li>'`.
+Let's look more closely at this line: `r.name + ' - <a href="#" data-repo="' + name + '" onclick="getCommits(this)">Get Commits</a></li>'`.
 
 The first interesting thing is that we're using a [data attribute](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_data_attributes) to hold the repo name. Data attributes make it super easy to pass data around between DOM elements and JS, so rather than jump through hoops trying to set and query `id` attributes, we'll do this.
 
@@ -330,3 +330,5 @@ the page.
 - [GitHub API](https://developer.github.com/v3/repos/#list-user-repositories)
 - [MDN: JSON.Parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse)
 - [MDN: Using data attributes](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_data_attributes)
+
+<p class='util--hide'>View <a href='https://learn.co/lessons/javascript-xhr'>XHR</a> on Learn.co and start learning to code for free.</p>
