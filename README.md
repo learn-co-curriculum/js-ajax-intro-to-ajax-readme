@@ -260,12 +260,12 @@ We'll start by adding the link to our repository output.
 function showRepositories(event, data) {
   var repos = JSON.parse(this.responseText)
   console.log(repos)
-  const repoList = `<ul>${repos.map(r => '<li>' + r.name + ' - <a href="#" data-repo="' + name + '" onclick="getCommits(this)">Get Commits</a></li>').join('')}</ul>`
+  const repoList = `<ul>${repos.map(r => '<li>' + r.name + ' - <a href="#" data-repo="' + r.name + '" onclick="getCommits(this)">Get Commits</a></li>').join('')}</ul>`
   document.getElementById("repositories").innerHTML = repoList
 }
 ```
 
-Let's look more closely at this line: `r.name + ' - <a href="#" data-repo="' + name + '" onclick="getCommits(this)">Get Commits</a></li>'`.
+Let's look more closely at this line: `r.name + ' - <a href="#" data-repo="' + r.name + '" onclick="getCommits(this)">Get Commits</a></li>'`.
 
 The first interesting thing is that we're using a [data attribute](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_data_attributes) to hold the repo name. Data attributes make it super easy to pass data around between DOM elements and JS, so rather than jump through hoops trying to set and query `id` attributes, we'll do this.
 
