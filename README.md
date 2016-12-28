@@ -308,7 +308,7 @@ what values we want to pull out, then display them on the page.
 ```js
 function showCommits() {
   const commits = JSON.parse(this.responseText)
-  const commitsList = `<ul>${commits.map(commit => '<li><strong>' + commit.committer.login + '</strong> - ' + commit.commit.message + '</li>').join('')}</ul>`
+  const commitsList = `<ul>${commits.map(commit => '<li><strong>' + commit.author.login + '</strong> - ' + commit.commit.message + '</li>').join('')}</ul>`
   document.getElementById("commits").innerHTML = commitsList
 }
 ```
