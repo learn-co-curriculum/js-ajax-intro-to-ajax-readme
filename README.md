@@ -282,7 +282,7 @@ about just making another XHR request to Github.
 function getCommits(el) {
   const name = el.dataset.repo
   const req = new XMLHttpRequest()
-  req.addEventListener("load", showCommits);
+  req.addEventListener("load", showCommits)
   req.open("GET", 'https://api.github.com/repos/octocat/' + name + '/commits')
   req.send()
 }
@@ -320,7 +320,7 @@ reloading the repository list!
 ## Summary
 
 We learned what the `XMLHttpRequest` object does, how to use it to
-request data from a remote resourece, and how to handle the response. We
+request data from a remote resource, and how to handle the response. We
 also learned how to parse the `responseText` into JSON and display it on
 the page.
 
