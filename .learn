@@ -1,6 +1,7 @@
 tags:
-  - javascript
+  - JavaScript
+  - XHR
+  - AJAX
 languages:
-  - javascript
-resources:
-  - 1
+  - JavaScript
+resources: 0
