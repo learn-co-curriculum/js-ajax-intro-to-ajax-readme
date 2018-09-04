@@ -135,11 +135,12 @@ function getRepositories() {
 
 When we add the event listener to our `req` object, we set it up so that `this`
 will be our `req` object inside our callback function. So, inside
-`showRepositories`, we can access `this.responseText` to see the full
+`showRepositories`, we can access `this.responseText` to see the full body of
+the response from our XHR request.
 
 Now that we know how to access the response, let's do something with it.
 
-### Parsing the XHR Response
+#### Parsing the XHR Response
 
 Since the Github API deals strictly in JSON, we know that our response will be
 well-formed JSON, so it should be easy for us to work with.
