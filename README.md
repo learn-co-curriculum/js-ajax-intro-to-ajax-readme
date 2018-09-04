@@ -120,7 +120,7 @@ a _callback function_, which is simply a function that will get called when the
 event fires.
 
 ```js
-function showRepositories(event, data) {
+function showRepositories() {
   //this is set to the XMLHttpRequest object that fired the event
   console.log(this.responseText);
 }
@@ -159,7 +159,7 @@ start by giving ourselves a place in the DOM to put the data.
 Then let's start by simply listing the repository names.
 
 ```js
-function showRepositories(event, data) {
+function showRepositories() {
   console.log(this.responseText);
   let repoList = '<ul>';
   for (var i = 0; i < this.responseText.length; i++) {
@@ -184,7 +184,7 @@ JavaScript that it's working with JSON.
 The way we tell the interpreter that we're working with JSON is to parse it with [`JSON.parse`][parse].
 
 ```js
-function showRepositories(event, data) {
+function showRepositories() {
   var repos = JSON.parse(this.responseText);
   console.log(repos);
   const repoList = `<ul>${repos
@@ -219,7 +219,7 @@ is clicked, and then show the commits in the second column.
 We'll start by adding the link to our repository output.
 
 ```js
-function showRepositories(event, data) {
+function showRepositories() {
   var repos = JSON.parse(this.responseText);
   console.log(repos);
   const repoList = `<ul>${repos
