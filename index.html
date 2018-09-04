@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <title>JavaScript XHR</title>
     <style>
@@ -9,25 +10,31 @@
         display: flex;
       }
 
-      .flexbox-container > div {
+      .flexbox-container>div {
         width: 50%;
         padding: 10px;
       }
 
-      .flexbox-container > div:first-child {
+      .flexbox-container>div:first-child {
         margin-right: 20px;
       }
     </style>
   </head>
+
   <body>
     <div class="flexbox-container">
       <div>
         <h3>Repositories</h3>
+        <a href="#" onclick="getRepositories()">Get Repositories</a>
+        <div id="repositories"></div>
       </div>
       <div>
         <h3>Commits</h3>
+        <div id="commits"></div>
       </div>
     </div>
-    <script src="index.js"></script>
+
+    <script src="js/index.js"></script>
   </body>
+
 </html>
