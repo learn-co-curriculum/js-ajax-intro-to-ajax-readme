@@ -1,41 +1,14 @@
-JavaScript XHR
----
+## JavaScript XHR
+
+While we'll often use the more modern `fetch`, it is important to have some
+grasp of how XHR works. In this lesson, we'll be taking a deeper dive.
 
 ## Objectives
 
-1. Explain how JavaScript fetches data from remote resources
-2. Explain how XHR helps us write dynamic programs
-3. Practice initializing an XHR request
-4. Practice handling an XHR response
-
-## Introduction
-
-We often find ourselves needing more data than we can, or should, load at one
-time. Data takes memory to store, and bandwidth to request from a server, and
-both of those things are finite resources.
-
-Not to mention how taxing it could be on the end user.
-
-Imagine walking into a library and all of the books in the library were
-immediately dropped in front of you. Overwhelming! You wouldn't be able to
-process all that, and the likelihood is that all the books in the library
-wouldn't fit in a single stack - the ceiling wouldn't be high enough.
-
-Now imagine that this library also had access to every book in every library
-across the world.
-
-Too many books. Too many books. Too many books, too many books.
-
-![smarf](http://i.giphy.com/fdyPkHljnYdEI.gif)
-
-When we go to a library to research something (surely somebody still does this),
-we only request the books we need as we need them, and until we do, they remain
-stored safely on their shelves out of everyone's way.
-
-Similarly, when working with server data, we often want to just request the
-data we need as we need it.
-
-JavaScript provides a mechanism for that. The [`XMLHttpRequest`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest).
+1.  Explain how XHR helps us write dynamic programs
+2.  Practice initializing an XHR request
+3.  Practice handling an XHR response
+4.  Understand how JavaScript fetches data from remote resources
 
 ## XMLHttpRequest
 
@@ -52,16 +25,17 @@ require them to stop what they're doing to get new information.
 
 ## Using XHR to Get Data from a Server
 
-We're going to be making a simple Github repository browser using the [Github API](https://developer.github.com/v3/repos/). Code along in the provided
-`index.html` and `index.js` files. A basic HTML structure is already in place.
+We're going to be making a simple Github repository browser using the
+[Github API][api]. Code along in the provided `index.html` and `index.js` files.
+A basic HTML structure is already in place.
 
 Getting data from a server via XHR happens in two stages. First, we make a
-*request*, and then we listen for, and handle, the *response*.
+_request_, and then we listen for, and handle, the _response_.
 
 ### Creating the XHR Request
 
 The first thing we want to do is get a list of our public repositories. A
-little research on the [Github List Repositories API](https://developer.github.com/v3/repos/#list-user-repositories) tells us
+little research on the [Github List Repositories API][user_repos] tells us
 we can request a user's public repositories via a `GET` request to `https://api.github.com/users/:username/repos`, so let's try it out.
 
 **Top-tip:** API documentation will often use a colon to precede a dynamic
@@ -81,9 +55,9 @@ Then let's create our `getRepositories` function and initiate our XHR request.
 
 ```js
 function getRepositories() {
-  const req = new XMLHttpRequest()
-  req.open("GET", 'https://api.github.com/users/octocat/repos')
-  req.send()
+  const req = new XMLHttpRequest();
+  req.open('GET', 'https://api.github.com/users/octocat/repos');
+  req.send();
 }
 ```
 
@@ -101,29 +75,34 @@ response that looks something like this:
 ```js
 [
   {
-    "id": 18221276,
-    "name": "git-consortium",
-    "full_name": "octocat/git-consortium",
-    "owner": {
-      "login": "octocat",
-      "id": 583231,
-      "avatar_url": "https://avatars.githubusercontent.com/u/583231?v=3",
-      "gravatar_id": "",
-      "url": "https://api.github.com/users/octocat",
-      "html_url": "https://github.com/octocat",
-      "followers_url": "https://api.github.com/users/octocat/followers",
-      "following_url": "https://api.github.com/users/octocat/following{/other_user}",
-      "gists_url": "https://api.github.com/users/octocat/gists{/gist_id}",
-      "starred_url": "https://api.github.com/users/octocat/starred{/owner}{/repo}",
-      "subscriptions_url": "https://api.github.com/users/octocat/subscriptions",
-      "organizations_url": "https://api.github.com/users/octocat/orgs",
-      "repos_url": "https://api.github.com/users/octocat/repos",
-      "events_url": "https://api.github.com/users/octocat/events{/privacy}",
-      "received_events_url": "https://api.github.com/users/octocat/received_events",
-      "type": "User",
-      "site_admin": false
-    },
-//... more!
+    id: 18221276,
+    name: 'git-consortium',
+    full_name: 'octocat/git-consortium',
+    owner: {
+      login: 'octocat',
+      id: 583231,
+      avatar_url: 'https://avatars.githubusercontent.com/u/583231?v=3',
+      gravatar_id: '',
+      url: 'https://api.github.com/users/octocat',
+      html_url: 'https://github.com/octocat',
+      followers_url: 'https://api.github.com/users/octocat/followers',
+      following_url:
+        'https://api.github.com/users/octocat/following{/other_user}',
+      gists_url: 'https://api.github.com/users/octocat/gists{/gist_id}',
+      starred_url:
+        'https://api.github.com/users/octocat/starred{/owner}{/repo}',
+      subscriptions_url: 'https://api.github.com/users/octocat/subscriptions',
+      organizations_url: 'https://api.github.com/users/octocat/orgs',
+      repos_url: 'https://api.github.com/users/octocat/repos',
+      events_url: 'https://api.github.com/users/octocat/events{/privacy}',
+      received_events_url:
+        'https://api.github.com/users/octocat/received_events',
+      type: 'User',
+      site_admin: false
+    }
+  }
+  //... more!
+];
 ```
 
 It worked! We successfully fetched data from a remote resource with XHR without
@@ -136,20 +115,21 @@ this response so we can do something with it.
 
 The second part of XHR is handling the response once we've made the request. We
 do this by defining an event listener on the request to listen for the `load`
-event, which will tell us that the request is complete. We'll give this
-listener a *callback function*, which is simply a function that will get called when the event fires.
+event, which will tell us that the request is complete. We'll give this listener
+a _callback function_, which is simply a function that will get called when the
+event fires.
 
 ```js
 function showRepositories(event, data) {
   //this is set to the XMLHttpRequest object that fired the event
-  console.log(this.responseText)
+  console.log(this.responseText);
 }
 
 function getRepositories() {
-  const req = new XMLHttpRequest()
-  req.addEventListener("load", showRepositories);
-  req.open("GET", 'https://api.github.com/users/octocat/repos')
-  req.send()
+  const req = new XMLHttpRequest();
+  req.addEventListener('load', showRepositories);
+  req.open('GET', 'https://api.github.com/users/octocat/repos');
+  req.send();
 }
 ```
 
@@ -179,19 +159,17 @@ Then let's start by simply listing the repository names.
 
 ```js
 function showRepositories(event, data) {
-  console.log(this.responseText)
-  let repoList = "<ul>"
-  for(var i=0;i < this.responseText.length; i++) {
-    repoList += "<li>" + this.responseText[i]["name"] + "</li>"
+  console.log(this.responseText);
+  let repoList = '<ul>';
+  for (var i = 0; i < this.responseText.length; i++) {
+    repoList += '<li>' + this.responseText[i]['name'] + '</li>';
   }
-  repoList += "</ul>"
-  document.getElementById("repositories").innerHTML = repoList
+  repoList += '</ul>';
+  document.getElementById('repositories').innerHTML = repoList;
 }
 ```
 
 Now if we reload and click our link...
-
-![jim hides](http://i.giphy.com/FGTVmzksb2j0k.gif)
 
 Okay not quite what we expected. While it might be fun to have a list of a
 million `undefined` values on a page, we got repositories to print out. What
@@ -199,23 +177,19 @@ happened?
 
 The key lies in the `responseText` property. We can look at it and understand
 that it's JSON, but to our JavaScript interpreter, it's just a string of text.
-And while we *know* that all JSON is just a string of text, we have to *tell*
+And while we _know_ that all JSON is just a string of text, we have to _tell_
 JavaScript that it's working with JSON.
 
-This might seem annoying, but honestly, if a computer can't innately know that
-some text is really JSON, it also probably can't become sentient. And that's
-good for all of us.
-
-![thumbs up](http://i.giphy.com/gFwZfXIqD0eNW.gif)
-
-The way we tell the interpreter that we're working with JSON is to parse it with [`JSON.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse).
+The way we tell the interpreter that we're working with JSON is to parse it with [`JSON.parse`][parse].
 
 ```js
 function showRepositories(event, data) {
-  var repos = JSON.parse(this.responseText)
-  console.log(repos)
-  const repoList = `<ul>${repos.map(r => '<li>' + r.name + '</li>').join('')}</ul>`
-  document.getElementById("repositories").innerHTML = repoList
+  var repos = JSON.parse(this.responseText);
+  console.log(repos);
+  const repoList = `<ul>${repos
+    .map(r => '<li>' + r.name + '</li>')
+    .join('')}</ul>`;
+  document.getElementById('repositories').innerHTML = repoList;
 }
 ```
 
@@ -229,7 +203,7 @@ We want to be able to list the commits for any given repository. Again, we
 don't want to just re-query the server for each repository as we're processing
 that data, we just want to respond to the user asking for a specific repo's commits.
 
-Let's go back into the Github API docs for [commits](https://developer.github.com/v3/repos/commits/) and check it out.
+Let's go back into the Github API docs for [commits][commits] and check it out.
 
 We can see that we can make another `GET` request to
 `/repos/:owner/:repo/commits` and list the commits. We have the repo name to
@@ -245,16 +219,25 @@ We'll start by adding the link to our repository output.
 
 ```js
 function showRepositories(event, data) {
-  var repos = JSON.parse(this.responseText)
-  console.log(repos)
-  const repoList = `<ul>${repos.map(r => '<li>' + r.name + ' - <a href="#" data-repo="' + r.name + '" onclick="getCommits(this)">Get Commits</a></li>').join('')}</ul>`
-  document.getElementById("repositories").innerHTML = repoList
+  var repos = JSON.parse(this.responseText);
+  console.log(repos);
+  const repoList = `<ul>${repos
+    .map(
+      r =>
+        '<li>' +
+        r.name +
+        ' - <a href="#" data-repo="' +
+        r.name +
+        '" onclick="getCommits(this)">Get Commits</a></li>'
+    )
+    .join('')}</ul>`;
+  document.getElementById('repositories').innerHTML = repoList;
 }
 ```
 
 Let's look more closely at this line: `r.name + ' - <a href="#" data-repo="' + r.name + '" onclick="getCommits(this)">Get Commits</a></li>'`.
 
-The first interesting thing is that we're using a [data attribute](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_data_attributes)
+The first interesting thing is that we're using a [data attribute][data]
 to hold the repo name. Data attributes make it super easy to pass data around
 between DOM elements and JS, so rather than jump through hoops trying to set
 and query `id` attributes, we'll do this.
@@ -270,11 +253,11 @@ another XHR request to Github.
 
 ```js
 function getCommits(el) {
-  const name = el.dataset.repo
-  const req = new XMLHttpRequest()
-  req.addEventListener("load", showCommits)
-  req.open("GET", 'https://api.github.com/repos/octocat/' + name + '/commits')
-  req.send()
+  const name = el.dataset.repo;
+  const req = new XMLHttpRequest();
+  req.addEventListener('load', showCommits);
+  req.open('GET', 'https://api.github.com/repos/octocat/' + name + '/commits');
+  req.send();
 }
 ```
 
@@ -297,9 +280,18 @@ want to pull out, then display them on the page.
 
 ```js
 function showCommits() {
-  const commits = JSON.parse(this.responseText)
-  const commitsList = `<ul>${commits.map(commit => '<li><strong>' + commit.author.login + '</strong> - ' + commit.commit.message + '</li>').join('')}</ul>`
-  document.getElementById("commits").innerHTML = commitsList
+  const commits = JSON.parse(this.responseText);
+  const commitsList = `<ul>${commits
+    .map(
+      commit =>
+        '<li><strong>' +
+        commit.author.login +
+        '</strong> - ' +
+        commit.commit.message +
+        '</li>'
+    )
+    .join('')}</ul>`;
+  document.getElementById('commits').innerHTML = commitsList;
 }
 ```
 
@@ -319,5 +311,11 @@ parse the `responseText` into JSON and display it on the page.
 - [GitHub API](https://developer.github.com/v3/repos/#list-user-repositories)
 - [MDN: JSON.Parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse)
 - [MDN: Using data attributes](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_data_attributes)
+
+[api]: https://developer.github.com/v3/repos/
+[user_repos]: https://developer.github.com/v3/repos/#list-user-repositories
+[parse]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
+[data]: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_data_attributes
+[commits]: https://developer.github.com/v3/repos/commits/
 
 <p class='util--hide'>View <a href='https://learn.co/lessons/javascript-xhr'>XHR</a> on Learn.co and start learning to code for free.</p>
