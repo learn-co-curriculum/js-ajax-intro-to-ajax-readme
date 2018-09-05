@@ -1,7 +1,10 @@
 ## JavaScript XHR
 
-While we'll often use the more modern `fetch`, it is important to have some
-grasp of how XHR works. In this lesson, we'll be taking a deeper dive.
+The XMLHttpRequest object, or XHR, is a JavaScript API that allows us to
+transfer data between a client and a server. This makes it possible to request
+and receive web page updates without refreshing, leading to an improved
+experience for users. In this lesson, we will be exploring the use of XHR by
+using it to access GitHub.
 
 ## Objectives
 
@@ -12,11 +15,13 @@ grasp of how XHR works. In this lesson, we'll be taking a deeper dive.
 
 ## XMLHttpRequest
 
-The XMLHttpRequest object, or XHR, is a JavaScript API that allows us to
-transfer data between a client and a server.
+XMLHttpRequest was named at a time when XML was all the rage, but it can be used
+with any type of data, including JSON, which is the current de facto standard.
 
-It was named at a time when XML was all the rage, but it can be used with any
-type of data, including JSON, which is the current de facto standard.
+> **Definition:** JSON stands for JavaScript Object Notation. Browsers and
+> servers are only able pass strings of text to each other. By using JavaScript
+> Object Notation, we can structure this text in a way that a browser or server
+> can read as a regular JavaScript object.
 
 XHR helps us write dynamic programs by allowing us to fetch data from a server
 based on user events, and update parts of pages without requiring a full-page
@@ -26,13 +31,20 @@ require them to stop what they're doing to get new information.
 ## Using XHR to Get Data from a Server
 
 We're going to be making a simple Github repository browser using the
-[Github API][api]. Code along in the provided `index.html` and `index.js` files.
-A basic HTML structure is already in place.
+[Github API][api].
 
-Getting data from a server via XHR happens in two stages. First, we make a
-_request_, and then we listen for, and handle, the _response_.
+> **Definition:** API stands for [Application Programming Interface][api_wiki].
+> In this course, we are working specifically with web APIs, which are sets of
+> tools or protocols that allow us to communicate with a resource hosted on a
+> remote server. In this lesson, we're communicating with GitHub using the
+> protocols they've defined in their documentation.
 
-### Creating the XHR Request
+Code along in the provided `index.html` and `index.js` files. A basic HTML
+structure is already in place. Getting data from a server via XHR happens in two
+stages. First, we make a _request_, and then we listen for, and handle, the
+_response_.
+
+#### Creating the XHR Request
 
 The first thing we want to do is get a list of our public repositories. A
 little research on the [Github List Repositories API][user_repos] tells us
@@ -111,7 +123,7 @@ reloading our page!
 Now that we have the request part down, we need to figure out how to capture
 this response so we can do something with it.
 
-### Handling the XHR Response
+#### Handling the XHR Response
 
 The second part of XHR is handling the response once we've made the request. We
 do this by defining an event listener on the request to listen for the `load`
@@ -318,5 +330,6 @@ parse the `responseText` into JSON and display it on the page.
 [parse]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
 [data]: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_data_attributes
 [commits]: https://developer.github.com/v3/repos/commits/
+[api_wiki]: https://en.wikipedia.org/wiki/Application_programming_interface
 
 <p class='util--hide'>View <a href='https://learn.co/lessons/javascript-xhr'>XHR</a> on Learn.co and start learning to code for free.</p>
