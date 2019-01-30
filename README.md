@@ -66,7 +66,9 @@ we can request a user's public repositories via a `GET` request to `https://api.
 
 **Top-tip:** API documentation will often use a colon to precede a dynamic
 value in a RESTful URL, like `:username`. That's your hint to supply your own
-value.
+value. In this case we'll be looking up information for `octocat`, GitHub's
+mascot (the cat head thing with tentacles). We choose this account as it's
+designed for testing and demonstration purposes.
 
 First, let's add a link to our HTML so we can trigger the request.
 
@@ -270,17 +272,25 @@ between DOM elements and JS, so rather than jump through hoops trying to set
 and query `id` attributes, we'll do this.
 
 The second thing is our `onclick` is explicitly passing `this` to the
-`getCommits` function. We need to do this to make sure that the current
-element, that is, the link being clicked, is available to our `getCommits`
-function so that we can get at that data attribute later.
+`getCommits` function. But what is `this` in, ahem, this case? Recall that
+we're mapping the `repos` in order to create `<li>`s between two `<ul>` tags.
+Therefore `this`, at the time we generate the `<li>` is a bit of JSON
+representing a repo. Therefore, when the `click` event is seen, the function
+`getCommits` will be called and its first argument will be the JSON
+representation of the repo.
+
+> **IMPORTANT**: Make sure you have this locked in your head. The `this` switching and callback
+logic tracing aspects of programming JavaScript frequently makes developers
+hate it because they're not 100% sure they understand what's going on
+before moving on. Convince yourself that you agree with what we wrote!
 
 Now that that's out of the way, let's set up our `getCommits`. It's going to
 look very similar to `getRepositories`, because it's mostly about just making
 another XHR request to Github.
 
 ```js
-function getCommits(el) {
-  const name = el.dataset.repo;
+function getCommits(repoJsonRep) {
+  const name = repoJsonRep.dataset.repo;
   const req = new XMLHttpRequest();
   req.addEventListener('load', showCommits);
   req.open('GET', 'https://api.github.com/repos/octocat/' + name + '/commits');
