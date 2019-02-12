@@ -331,5 +331,3 @@ parse the `responseText` into JSON and display it on the page.
 [data]: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_data_attributes
 [commits]: https://developer.github.com/v3/repos/commits/
 [api_wiki]: https://en.wikipedia.org/wiki/Application_programming_interface
-
-<p class='util--hide'>View <a href='https://learn.co/lessons/javascript-xhr'>XHR</a> on Learn.co and start learning to code for free.</p>
